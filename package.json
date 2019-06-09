@@ -9,8 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "serve": "ionic serve --prod --no-open --address=192.168.128.122"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
