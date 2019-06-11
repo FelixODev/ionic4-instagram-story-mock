@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -7,38 +7,21 @@ import { NavController } from '@ionic/angular';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   providers: [
-    CameraPreview
+    AndroidPermissions
   ]
 })
 export class HomePage {
 
-  picture: any;
-
   constructor(
-  private cameraPreview: CameraPreview,
+  private androidPermissions: AndroidPermissions,
   private navCtrl: NavController
   ) {
-    const cameraPreviewOpts: CameraPreviewOptions = {
-      x: 0,
-      y: 0,
-      width: window.screen.width,
-      height: window.screen.height,
-      camera: 'rear',
-      tapPhoto: false,
-      previewDrag: false,
-      toBack: true,
-      alpha: 1
-    }
-
-    this.cameraPreview.startCamera(cameraPreviewOpts).then(
-      (res) => {
-        console.log(res)
-        this.cameraPreview.hide();
-        this.navCtrl.navigateForward('/story');
-      },
-      (err) => {
-        console.log(err)
-      });
+    this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+    // this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+    //   result => this.navCtrl.navigateForward('/story')
+    //   , err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+    // );
+    this.navCtrl.navigateForward('/story');
   }
 
 }
