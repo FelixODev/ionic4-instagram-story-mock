@@ -1,5 +1,7 @@
 {
   "name": "ionic4-instagram-story-mock",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
