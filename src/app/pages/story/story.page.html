@@ -81,6 +81,7 @@ fullscreen="true"
     </ion-button>
 
     <ion-button
+    (click)="flash"
     fill="clear"
     style="
     border-radius: 50%;
@@ -95,6 +96,7 @@ fullscreen="true"
   
 
     <ion-fab-button
+    (click)="snap()"
     margin-horizontal
     size="large"
     mode="ios"
@@ -107,6 +109,7 @@ fullscreen="true"
 
   
     <ion-button
+    (click)="switch()"
     fill="clear"
     style="
     border-radius: 50%;
@@ -120,6 +123,7 @@ fullscreen="true"
     </ion-button>
 
     <ion-button
+    (click)="setEffect()"
     fill="clear"
     style="
     border-radius: 50%;

@@ -10,6 +10,13 @@ import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, Camer
   ],
 })
 export class StoryPage implements OnInit {
+  
+  // picture options
+  pictureOpts: CameraPreviewPictureOptions = {
+    width: 1280,
+    height: 1280,
+    quality: 85
+  }
 
   picture: any;
 
@@ -39,6 +46,92 @@ export class StoryPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+
+
+
+
+
+
+
+
+  snap(){
+
+    // take a picture
+    // this.cameraPreview.takePicture(this.pictureOpts).then((imageData) => {
+    //   this.picture = 'data:image/jpeg;base64,' + imageData;
+    // }, (err) => {
+    //   console.log(err);
+    //   this.picture = 'assets/img/test.jpg';
+    // });
+
+    // take a snap shot
+    this.cameraPreview.takeSnapshot(this.pictureOpts).then((imageData) => {
+      this.picture = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      console.log(err);
+      this.picture = 'assets/img/test.jpg';
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+  switch(){
+    this.cameraPreview.switchCamera();
+  }
+
+
+
+
+
+
+
+
+
+
+  setEffect(){
+    this.cameraPreview.setColorEffect('negative');
+  }
+
+
+
+
+
+
+
+
+
+  stop(){
+    this.cameraPreview.stopCamera();
+  }
+
+
+
+
+
+
+
+
+
+
+  flash(){
+    this.cameraPreview.getFlashMode()
+    .then((currentFlashMode)=>{
+      if(currentFlashMode == 'OFF'){
+        this.cameraPreview.setFlashMode(this.cameraPreview.FLASH_MODE.ON);
+      } else {
+        this.cameraPreview.setFlashMode(this.cameraPreview.FLASH_MODE.OFF);
+      }
+    });
   }
 
 }
