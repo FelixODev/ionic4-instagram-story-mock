@@ -1,23 +1,47 @@
+<div
+style="
+display: block;
+position: absolute;
+height: 100%; 
+width: 100%;
+background: transparent;
+">
+  <img 
+  style="
+  display: block;
+  height: 100%; 
+  width: 100%;
+  background: transparent;" 
+  [src]="image" 
+  alt="">
+</div>
+
+
+
+<!-- <web-photo-filter
+style="
+background: transparent;
+height:100%;
+width: 100%;"
+[class.only-original]="!selectedFilter"
+[class.no-original]="selectedFilter"
+[src]="image"
+[filter]="selectedFilter"
+[level]="level" 
+keep="true" 
+(filterLoad)="imageLoaded($event)">
+</web-photo-filter> -->
+
+
+
+
+
 <ion-content
+*ngIf="!snapped"
 fullscreen="true"
 >
 
-  <!-- <div
-  style="
-  display: block;
-  position: absolute;
-  height: 100%; 
-  width: 100%;
-  ">
-    <img 
-    style="
-    display: block;
-    height: 100%; 
-    width: 100%;" 
-    [src]="" 
-    alt="">
-  </div> -->
-  
+
 
 
   <ion-toolbar
@@ -65,7 +89,7 @@ fullscreen="true"
   style="
   position: absolute;
   bottom: 0;
-  width: 100%
+  width: 100%;
   ">
     
     <ion-button
@@ -80,8 +104,10 @@ fullscreen="true"
       </ion-icon>
     </ion-button>
 
+
+
     <ion-button
-    (click)="flash"
+    (click)="flash()"
     fill="clear"
     style="
     border-radius: 50%;
@@ -95,6 +121,7 @@ fullscreen="true"
     </ion-button>
   
 
+
     <ion-fab-button
     (click)="snap()"
     margin-horizontal
@@ -102,12 +129,13 @@ fullscreen="true"
     mode="ios"
     color="light"
     style="
-    border: solid 10px #e4e4e475;
+    border: solid 10px #e4e4e4aa;
     border-radius: 50%;
     ">   
     </ion-fab-button>
 
-  
+
+    
     <ion-button
     (click)="switch()"
     fill="clear"
@@ -122,8 +150,10 @@ fullscreen="true"
       </ion-icon>
     </ion-button>
 
+
+
     <ion-button
-    (click)="setEffect()"
+    (click)="filtering = true;"
     fill="clear"
     style="
     border-radius: 50%;
@@ -131,10 +161,14 @@ fullscreen="true"
       <ion-icon
       size="large"
       color="light"
-      name="md-happy">
+      name="md-color-palette">
       </ion-icon>
     </ion-button>
     
+
+
+
+
     <ion-toolbar
     text-center
     color="none"
@@ -150,10 +184,112 @@ fullscreen="true"
         </ion-text>
       </ion-button>
     </ion-toolbar>
+
+
+
     
+
+    <ion-toolbar
+    *ngIf="filtering"
+    color="none"
+    style="
+    background: #ffffff25;
+    ">
+      <ion-button  
+      *ngFor="let camFilter of [
+      { name: '', effect: 'NONE' },
+      { name: '', effect: 'AQUA' },
+      { name: '', effect: 'BLACKBOARD' },
+      { name: '', effect: 'MONO' },
+      { name: '', effect: 'NEGATIVE' },
+      { name: '', effect: 'POSTERIZE' },
+      { name: '', effect: 'SEPIA' },
+      { name: '', effect: 'SOLARIZE' },
+      { name: '', effect: 'WHITEBOARD' }
+      ]"
+      (click)="setEffect(camFilter?.effect)"
+      >
+        {{ camFilter?.effect }}
+      </ion-button>
+    </ion-toolbar>
+
   </ion-row>
 
 
 
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+<ion-content
+*ngIf="snapped"
+>
+
+
+
+
+<ion-toolbar
+color="none"
+>
+
+  <ion-buttons
+  slot="start"
+  >
+    <ion-button
+    (click)="hideEmojiPicker(); unsnap()"
+    fill="clear"
+    >
+
+      <ion-icon
+      size="large"
+      color="light"
+      name="close"
+      >
+      </ion-icon>
+
+    </ion-button>
+  </ion-buttons>
+
+  <ion-buttons
+  slot="end"
+  >
+    <ion-button
+    (click)="showEmojiPicker()"
+    fill="clear">
+
+      <ion-icon
+      size="large"
+      color="light"
+      name="md-happy">
+      </ion-icon>
+      
+    </ion-button>
+  </ion-buttons>
+
+</ion-toolbar>
+
+
+
+
+
+
+
+
+
+<ion-row
+margin
+padding
+*ngIf="pickingEmojis"
+>
+  😀 😁 😂 🤣 😃 😄 😅 😆 😉 😊 😋 😎 😍 😘 😗 😙 😚 🙂 🤗 🤩 🤔 🤨 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 😴 😌 😛 😜 😝 🤤 😒 😓 😔 😕 🙃 🤑 😲 ☹️ 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 🤯 😬 😰 😱 😳 🤪 😵 😡 😠 🤬 😷 🤒 🤕 🤢 🤮 🤧 😇 🤠 🤡 🤥 🤫 🤭 🧐 🤓 😈 👿 👹 👺 💀 👻 👽 🤖 💩 😺 😸 😹 😻 😼 😽 🙀 😿 😾
+</ion-row>
 
 </ion-content>

@@ -1,8 +1,21 @@
+page-story {
+  canvas {
+    width: 100%;
+    background: transparent;
+  }
+  .no-original img.display-no-filter {
+    display: none !important;
+    }
+  .only-original canvas {
+    display: none !important;
+  }
+}
+
 ion-fab {
-    .fab { display: inline-block !important}
-  }
-  
-  
-  ion-content {
-    --background:none !important;
-  }
+  .fab { display: inline-block !important}
+}
+
+
+ion-content {
+  --background:none !important;
+}

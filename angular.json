@@ -29,6 +29,16 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
+              },
+              {
+                "glob": "webphotofilter.js",
+                "input": "node_modules/web-photo-filter/dist",
+                "output": "./"
+              },
+              {
+                "glob": "webphotofilter/*",
+                "input": "node_modules/web-photo-filter/dist",
+                "output": "./"
               }
             ],
             "styles": [

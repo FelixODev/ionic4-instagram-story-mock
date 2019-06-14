@@ -21,7 +21,7 @@ export class HomePage {
     //   result => this.navCtrl.navigateForward('/story')
     //   , err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
     // );
-    this.navCtrl.navigateForward('/story');
+    this.navCtrl.navigateBack('/story');
   }
 
 }
