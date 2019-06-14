@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { StoryPage } from './story.page';
+import { DragDirective } from 'src/app/directives/drag.directive';
 
 const routes: Routes = [
   {
@@ -22,7 +23,11 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
+    DragDirective,
     StoryPage
+  ],
+  exports: [
+    DragDirective
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
