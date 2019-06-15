@@ -3,7 +3,7 @@ import { Directive, Input, ElementRef, Renderer } from '@angular/core';
 @Directive({
   selector: '[drag]',
   host: {
-    '[pan]': 'handlePan($event)'
+    //'[pan]': 'handlePan($event)'
   }
 })
 export class DragDirective {

@@ -25,6 +25,9 @@ export class StoryPage implements OnInit {
     quality: 85
   }
 
+  canvas: any;
+  context: any;
+
   snapped: boolean = false;
   filtering: boolean = false;
   pickingEmojis: boolean = false;
@@ -119,6 +122,34 @@ export class StoryPage implements OnInit {
 
 
 
+  setCanvas(){
+    let canvas = <HTMLCanvasElement> document.getElementById('viewport'),
+    context = canvas.getContext('2d'),
+    base_image = new Image();
+
+    context.canvas.width = window.innerWidth;
+    context.canvas.height = window.innerHeight;
+
+    base_image.src = this.image;
+    base_image.onload = function(){
+      context.drawImage(base_image, 0, 0, window.innerWidth, window.innerHeight);
+    }
+  }
+  clearCanvas(){
+    let canvas = <HTMLCanvasElement> document.getElementById('viewport'),
+    context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+
+
+
+
+
+
+
+
+
   hideEmojiPicker(){
     this.pickingEmojis = false;
   }
@@ -149,7 +180,8 @@ export class StoryPage implements OnInit {
 
 
   unsnap(){
-    this.image = '';
+    this.image = null;
+    this.clearCanvas();
     this.snapped = false;
   }
 
@@ -167,9 +199,7 @@ export class StoryPage implements OnInit {
     this.cameraPreview.takeSnapshot(this.pictureOpts).then((imageData) => {
       this.image = 'data:image/jpeg;base64,' + imageData;
       this.snapped = true;
-      // setTimeout(()=>{
-      //   this.image = ''
-      // }, 1500 )
+      this.setCanvas();
     }, (err) => {
       console.log(err);
     });
