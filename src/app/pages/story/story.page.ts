@@ -28,6 +28,11 @@ export class StoryPage implements OnInit {
   canvas: any;
   context: any;
 
+  emojis = [
+    '😀', '😁', '😂', '🤣', '😃', '😄', '😅', '😆', '😉', '😊', '😋', '😎', '😍', '😘', '😗', '😙', '😚', '🙂', '🤗', '🤩', '🤔', '🤨', '😐', '😑', '😶', '🙄', '😏', '😣', '😥', '😮', '🤐', '😯', '😪', '😫', '😴', '😌', '😛', '😜', '😝', '🤤', '😒', '😓', '😔', '😕', '🙃', '🤑', '😲', '🙁', '😖', '😞', '😟', '😤', '😢', '😭', '😦', '😧', '😨', '😩', '🤯', '😬', '😰', '😱', '😳', '🤪', '😵', '😡', '😠', '🤬', '😷', '🤒', '🤕', '🤢', '🤮', '🤧', '😇', '🤠', '🤡', '🤥', '🤫', '🤭', '🧐', '🤓', '😈', '👿', '👹', '👺', '💀', '👻', '👽', '🤖', '💩', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾'
+    ];
+  smileys = [];
+
   snapped: boolean = false;
   filtering: boolean = false;
   pickingEmojis: boolean = false;
@@ -59,6 +64,11 @@ export class StoryPage implements OnInit {
   }
 
   ngOnInit() {
+    this.canvas = <HTMLCanvasElement> document.getElementById('viewport'),
+    this.context = this.canvas.getContext('2d');
+
+    this.context.canvas.width = screen.availWidth;
+    this.context.canvas.height = screen.availHeight;
   }
 
 
@@ -123,22 +133,16 @@ export class StoryPage implements OnInit {
 
 
   setCanvas(){
-    let canvas = <HTMLCanvasElement> document.getElementById('viewport'),
-    context = canvas.getContext('2d'),
-    base_image = new Image();
-
-    context.canvas.width = window.innerWidth;
-    context.canvas.height = window.innerHeight;
+    let base_image = new Image();
 
     base_image.src = this.image;
-    base_image.onload = function(){
-      context.drawImage(base_image, 0, 0, window.innerWidth, window.innerHeight);
+    base_image.onload = () => {
+      this.context.drawImage(base_image, 0, 0, this.canvas.width, this.canvas.height);
+      //this.addEmoji();
     }
   }
   clearCanvas(){
-    let canvas = <HTMLCanvasElement> document.getElementById('viewport'),
-    context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
 
@@ -155,6 +159,13 @@ export class StoryPage implements OnInit {
   }
   showEmojiPicker(){
     this.pickingEmojis = true;
+  }
+  addEmoji(emoji){
+    this.smileys.push(emoji);
+  }
+  writeEmoji(smiley, x, y){
+    this.context.font = '50px HelveticaNeue';
+    this.context.fillText( smiley, x, y );
   }
 
 
@@ -181,6 +192,7 @@ export class StoryPage implements OnInit {
 
   unsnap(){
     this.image = null;
+    this.smileys = [];
     this.clearCanvas();
     this.snapped = false;
   }

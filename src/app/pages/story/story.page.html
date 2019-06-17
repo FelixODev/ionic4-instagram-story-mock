@@ -13,19 +13,35 @@ background: transparent;
 
 
 
-<!-- <web-photo-filter
+
+
+
+
+
+
+
+<div
+*ngIf="snapped"
 style="
-background: transparent;
-height:100%;
-width: 100%;"
-[class.only-original]="!selectedFilter"
-[class.no-original]="selectedFilter"
-[src]="image"
-[filter]="selectedFilter"
-[level]="level" 
-keep="true" 
-(filterLoad)="imageLoaded($event)">
-</web-photo-filter> -->
+position: absolute;
+height: 100%;
+width: 100%;
+">
+
+  <div
+  *ngFor="let smiley of smileys"
+  drag
+  >
+    {{ smiley }}
+  </div>
+
+</div>
+
+
+
+
+
+
 
 
 
@@ -35,9 +51,6 @@ keep="true"
 *ngIf="!snapped"
 fullscreen="true"
 >
-
-
-
 
   <ion-toolbar
   color="none"
@@ -75,9 +88,6 @@ fullscreen="true"
 
   </ion-toolbar>
 
-
-
-
   <ion-row
   align-items-center
   justify-content-center
@@ -99,8 +109,6 @@ fullscreen="true"
       </ion-icon>
     </ion-button>
 
-
-
     <ion-button
     (click)="flash()"
     fill="clear"
@@ -114,8 +122,6 @@ fullscreen="true"
       >
       </ion-icon>
     </ion-button>
-  
-
 
     <ion-fab-button
     (click)="snap()"
@@ -129,8 +135,6 @@ fullscreen="true"
     ">   
     </ion-fab-button>
 
-
-    
     <ion-button
     (click)="switch()"
     fill="clear"
@@ -145,8 +149,6 @@ fullscreen="true"
       </ion-icon>
     </ion-button>
 
-
-
     <ion-button
     (click)="filtering = true;"
     fill="clear"
@@ -160,10 +162,6 @@ fullscreen="true"
       </ion-icon>
     </ion-button>
     
-
-
-
-
     <ion-toolbar
     text-center
     color="none"
@@ -179,10 +177,6 @@ fullscreen="true"
         </ion-text>
       </ion-button>
     </ion-toolbar>
-
-
-
-    
 
     <ion-toolbar
     *ngIf="filtering"
@@ -210,9 +204,6 @@ fullscreen="true"
 
   </ion-row>
 
-
-
-
 </ion-content>
 
 
@@ -228,9 +219,6 @@ fullscreen="true"
 *ngIf="snapped"
 >
 
-
-
-
 <ion-toolbar
 color="none"
 >
@@ -239,7 +227,7 @@ color="none"
   slot="start"
   >
     <ion-button
-    (click)="hideEmojiPicker(); unsnap()"
+    (click)="hideEmojiPicker(); unsnap();"
     fill="clear"
     >
 
@@ -271,20 +259,26 @@ color="none"
 
 </ion-toolbar>
 
-
-
-
-
-
-
-
-
 <ion-row
-margin
 padding
 *ngIf="pickingEmojis"
->
-  😀 😁 😂 🤣 😃 😄 😅 😆 😉 😊 😋 😎 😍 😘 😗 😙 😚 🙂 🤗 🤩 🤔 🤨 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 😴 😌 😛 😜 😝 🤤 😒 😓 😔 😕 🙃 🤑 😲 ☹️ 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 🤯 😬 😰 😱 😳 🤪 😵 😡 😠 🤬 😷 🤒 🤕 🤢 🤮 🤧 😇 🤠 🤡 🤥 🤫 🤭 🧐 🤓 😈 👿 👹 👺 💀 👻 👽 🤖 💩 😺 😸 😹 😻 😼 😽 🙀 😿 😾
+style="
+z-index:1005;
+">
+  
+  <ion-button
+  no-margin
+  no-padding
+  fill="clear"
+  *ngFor="let emoji of emojis"
+  (click)="addEmoji(emoji); pickingEmojis = false;"
+  >
+    <span style="
+    font-size: 25px;
+    ">
+      {{ emoji || '' }}
+    </span>
+  </ion-button>
 </ion-row>
 
 </ion-content>
