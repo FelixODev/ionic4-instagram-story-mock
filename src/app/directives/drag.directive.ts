@@ -1,21 +1,23 @@
 import { Directive, Input, ElementRef, Renderer } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 @Directive({
   selector: '[drag]',
   host: {
     '(touchmove)': 'handlePan($event)',
-    '(pinchout)': 'handlePinchOut($event)',
-    '(pinchin)': 'handlePinchIn($event)',
+    '(pointermove)': 'handlePinch($event)'
   }
 })
 export class DragDirective {
 
-  
   @Input('size') size: any = 50;
   @Input('top') top: any = screen.availHeight/2;
   @Input('left') left: any = screen.width/2;
 
+  alert: any;
+
   constructor(
+  public alertCtrl: AlertController,
   public element: ElementRef,
   public renderer: Renderer,
   ) { }
@@ -43,19 +45,27 @@ export class DragDirective {
 
 
 
-  handlePinchOut(ev){
-    this.size += 1;
-    this.renderer.setElementStyle(this.element.nativeElement, 'font-size', this.size + 'px')
+  handlePinch(ev){
+    let point = ev
+    if( point.pointId != ev.pointId )
+    {
+      this.showAlert('hi')
+    } else {
+      console.log(ev)
+    }
   }
 
 
 
 
 
-  handlePinchIn(ev){
-    this.size -= 1;
-    this.renderer.setElementStyle(this.element.nativeElement, 'font-size', this.size + 'px')
+  async showAlert(message){
+    this.alert = await this.alertCtrl.create({
+      message: message
+    })
+    return await this.alert.present();
   }
+
 
 
 

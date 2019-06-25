@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
@@ -13,6 +13,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 })
 export class StoryPage implements OnInit {
 
+  @ViewChildren('emj')
+  emj: any;
   selectedFilter = null;
   image = '';
   level = 1;
